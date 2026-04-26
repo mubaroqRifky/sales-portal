@@ -204,6 +204,11 @@
                                         Initialize
                                     </button>
                                 </div>
+
+                                <div
+                                    id="btn-sign-in"
+                                    class="hidden report-btn"
+                                ></div>
                             </div>
                         </div>
                     </div>
@@ -252,7 +257,7 @@ definePageMeta({
     middleware: ["auth"],
 });
 
-const { $auth } = useNuxtApp();
+const { $auth, $config } = useNuxtApp();
 
 const router = useRouter();
 
@@ -305,7 +310,40 @@ const processLogout = async () => {
     }
 };
 
-const connectApp = (appName) => console.log(`Linking ${appName}`);
+const connectApp = (appName) => {
+    switch (appName) {
+        case "Reports":
+            const btnReport = document.querySelector(".report-btn");
+            if (btnReport) {
+                btnReport.click();
+            }
+            break;
+
+        default:
+            break;
+    }
+};
+
+const handleResponse = (response) => {
+    console.log(response);
+};
+
+const initialOauthSmartHatcher = () => {
+    const script = document.createElement("script");
+
+    const OAUTH_URL = $config.public.REPORT_OAUTH_URL;
+    script.src = `${OAUTH_URL}/oauth.js`;
+    script.dataset.clientId = $config.public.REPORT_OAUTH_CLIENT_ID;
+
+    window.handleResponse = handleResponse;
+    script.dataset.callback = "handleResponse";
+
+    document.body.appendChild(script);
+};
+
+onMounted(() => {
+    initialOauthSmartHatcher();
+});
 </script>
 
 <style scoped>
