@@ -10,7 +10,7 @@
         ></div>
 
         <div
-            class="w-[90%] sm:w-[420px] flex flex-col gap-8 bg-white-blur px-8 py-10 rounded-[2rem] shadow-2xl border border-white/20 backdrop-blur-xl justify-center items-center z-10"
+            class="w-[90%] sm:w-[420px] flex flex-col gap-8 bg-white-blur px-8 py-6 rounded-[2rem] shadow-2xl border border-white/20 backdrop-blur-xl justify-center items-center z-10"
         >
             <div class="flex flex-col items-center justify-center">
                 <div class="w-12 h-1.5 bg-blue-600 rounded-full mb-6"></div>
