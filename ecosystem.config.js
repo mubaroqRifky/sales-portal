@@ -1,7 +1,7 @@
 module.exports = {
     apps: [
         {
-            name: "app-name",
+            name: "portal",
             port: 8033,
             script: "./.output/server/index.mjs",
             instance: "max",

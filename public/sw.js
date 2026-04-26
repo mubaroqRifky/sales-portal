@@ -1,4 +1,4 @@
-const title = "app-name";
+const title = "portal";
 const icon = "/images/android-launchericon-144-144.png";
 const badge = "/images/icon.png";
 const options = { icon, badge, silent: false };
@@ -69,7 +69,7 @@ self.addEventListener("notificationclick", function (event) {
             if (isOpenWindow(windowClients)) return client.focus();
             // If not, then open the target URL in a new window/tab.
             return clients.openWindow(self.location.origin);
-        })
+        }),
     );
 });
 

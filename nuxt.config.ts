@@ -11,7 +11,7 @@ export default defineNuxtConfig({
 
     app: {
         head: {
-            title: "app title",
+            title: "Portal",
             htmlAttrs: {
                 lang: "id",
                 translate: "no",
@@ -37,11 +37,11 @@ export default defineNuxtConfig({
                 { name: "og:image:type", content: "image/png" },
                 { name: "og:image:width", content: "512" },
                 { name: "og:image:height", content: "512" },
-                { name: "og:image:alt", content: "app-name" },
+                { name: "og:image:alt", content: "portal" },
                 { name: "og:type", content: "website" },
-                { name: "og:site_name", content: "app-name" },
-                { name: "og:title", content: "app-name" },
-                { name: "og:description", content: "app description" },
+                { name: "og:site_name", content: "portal" },
+                { name: "og:title", content: "portal" },
+                { name: "og:description", content: "Website Customer Portal" },
                 { name: "og:locale", content: "id-ID" },
             ],
             link: [
