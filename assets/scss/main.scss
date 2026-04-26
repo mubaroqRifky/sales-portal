@@ -1,0 +1,29 @@
+@use "tailwindcss/base" as *;
+@use "tailwindcss/components" as *;
+@use "tailwindcss/utilities" as *;
+
+@use "reset" as *;
+@use "utils" as *;
+@use "animation" as *;
+@use "scrollbar" as *;
+@use "table" as *;
+@use "button" as *;
+@use "datepicker" as *;
+@use "vselect" as *;
+@use "base" as *;
+
+#app {
+    @apply flex h-[100dvh] w-screen overflow-hidden width-constraint;
+}
+
+.mobile-width-constraint {
+    @apply max-w-md w-full mx-auto my-0 shadow-xl;
+}
+
+.width-constraint {
+    @apply max-w-[150rem] w-full mx-auto my-0;
+}
+
+.linear-light {
+    background: linear-gradient(to bottom, #a7f9fb 10%, #23b5cc);
+}
