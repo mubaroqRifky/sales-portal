@@ -77,13 +77,16 @@
                             </p>
                         </div>
                         <div class="p-2">
-                            <nuxt-link to="/profile" class="dropdown-item">
+                            <nuxt-link
+                                to="/profile"
+                                class="dropdown-item hover:bg-blue-600/10 hover:text-blue-400 uppercase"
+                            >
                                 <IconPencil width="16px" height="16px" />
                                 Profile Settings
                             </nuxt-link>
                             <button
                                 @click="confirmLogout"
-                                class="dropdown-item text-red-400 hover:bg-red-500/10 w-full uppercase font-black"
+                                class="dropdown-item text-danger hover:bg-[#ffb6b69e] hover:text-red-400 uppercase w-full"
                             >
                                 <IconLogout width="16px" height="16px" />
                                 Sign Out
@@ -146,6 +149,6 @@ const processLogout = async () => {
 }
 
 .dropdown-item {
-    @apply flex items-center gap-3 px-4 py-3 text-[11px] font-medium hover:bg-blue-600/10 hover:text-blue-400 transition-all rounded-xl;
+    @apply flex items-center gap-3 px-4 py-3 text-[11px] font-medium transition-all rounded-xl;
 }
 </style>
