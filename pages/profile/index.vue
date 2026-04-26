@@ -189,8 +189,9 @@
 
                                     <span
                                         class="text-sm font-black text-slate-800 uppercase tracking-tight"
-                                        >{{ app.name }}</span
                                     >
+                                        {{ app.name }}
+                                    </span>
                                     <p
                                         class="text-[10px] text-slate-400 mt-1 mb-6 text-center leading-relaxed font-medium uppercase"
                                     >
@@ -208,6 +209,11 @@
                                 <div
                                     id="btn-sign-in"
                                     class="hidden report-btn"
+                                ></div>
+
+                                <div
+                                    id="btn-appso"
+                                    class="hidden appso-btn"
                                 ></div>
                             </div>
                         </div>
@@ -319,6 +325,13 @@ const connectApp = (appName) => {
             }
             break;
 
+        case "APPSO":
+            const btnAppso = document.querySelector(".appso-btn");
+            if (btnAppso) {
+                btnAppso.click();
+            }
+            break;
+
         default:
             break;
     }
@@ -328,7 +341,7 @@ const handleResponse = (response) => {
     console.log(response);
 };
 
-const initialOauthSmartHatcher = () => {
+const initialOauthReports = () => {
     const script = document.createElement("script");
 
     const OAUTH_URL = $config.public.REPORT_OAUTH_URL;
@@ -341,8 +354,23 @@ const initialOauthSmartHatcher = () => {
     document.body.appendChild(script);
 };
 
+const initialOauthAppso = () => {
+    const script = document.createElement("script");
+
+    const OAUTH_URL = $config.public.APPSO_OAUTH_URL;
+    script.src = `${OAUTH_URL}/oauth.js`;
+    script.dataset.clientId = $config.public.APPSO_OAUTH_CLIENT_ID;
+    script.dataset.buttonId = "btn-appso";
+
+    window.handleResponse = handleResponse;
+    script.dataset.callback = "handleResponse";
+
+    document.body.appendChild(script);
+};
+
 onMounted(() => {
-    initialOauthSmartHatcher();
+    initialOauthReports();
+    initialOauthAppso();
 });
 </script>
 
