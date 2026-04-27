@@ -311,8 +311,8 @@ const handleResponse = async (response, id) => {
                 app_id: id,
                 token: response.id_token,
             };
-            const { data, message } = await $application.connectApps(payload);
-            console.log(response, id, data, message, "masuk");
+            const { data } = await $application.connectApps(payload);
+            console.log(response, data);
         }
     } catch (error) {
         throw new ErrorHandler(error);
