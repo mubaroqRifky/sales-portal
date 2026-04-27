@@ -67,6 +67,24 @@ onUnmounted(() => {
 
 .background {
     // background: url("~/assets/images/bg-login11.png") center no-repeat;
-    background: url("~/assets/images/background-light.svg") center no-repeat;
+    // background: url("~/assets/images/background-light.svg") center no-repeat;
+
+    background-image:
+        radial-gradient(
+            circle at top right,
+            rgba(255, 255, 255, 0.8) 0%,
+            rgba(255, 255, 255, 0) 40%
+        ),
+        radial-gradient(
+            circle at bottom left,
+            rgba(255, 255, 255, 0.8) 0%,
+            rgba(255, 255, 255, 0) 40%
+        ),
+        linear-gradient(rgba(213, 212, 255, 0.5), rgba(255, 255, 255, 0.5)),
+        url("~/assets/images/background.jpg");
+
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
 }
 </style>
