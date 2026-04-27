@@ -188,7 +188,7 @@
                                     </div>
 
                                     <span
-                                        class="text-sm font-black text-slate-800 uppercase tracking-tight"
+                                        class="text-sm font-black text-slate-800 uppercase tracking-tight text-center"
                                     >
                                         {{ app.name }}
                                     </span>
