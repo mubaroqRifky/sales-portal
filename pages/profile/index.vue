@@ -341,25 +341,27 @@ const getAllIntegratedApps = async () => {
                 `script[src="${val.oauth_url}"]`,
             );
 
-            if (!existingScript) {
-                const script = document.createElement("script");
-
-                script.src = val.oauth_url;
-                script.dataset.clientId = val.client_id;
-                script.dataset.buttonId = val.button_id;
-
-                window[val.button_id] = (response) => {
-                    handleResponse(response, val.id);
-                };
-
-                script.dataset.callback = val.button_id;
-
-                document.body.appendChild(script);
-            } else {
-                window[val.button_id] = (response) => {
-                    handleResponse(response, val.id);
-                };
+            if (existingScript) {
+                existingScript.remove();
             }
+
+            if (window[val.button_id]) {
+                delete window[val.button_id];
+            }
+
+            const script = document.createElement("script");
+
+            script.src = val.oauth_url;
+            script.dataset.clientId = val.client_id;
+            script.dataset.buttonId = val.button_id;
+
+            window[val.button_id] = (response) => {
+                handleResponse(response, val.id);
+            };
+
+            script.dataset.callback = val.button_id;
+
+            document.body.appendChild(script);
         });
     } catch (error) {
         throw new ErrorHandler(error);
