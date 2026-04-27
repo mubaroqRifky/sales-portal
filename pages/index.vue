@@ -2,21 +2,25 @@
     <section
         class="flex flex-col md:flex-row justify-center items-center h-full gap-8 relative starting-container"
     >
-        <div class="flex gap-12 items-center flex-wrap max-w-[80%]">
+        <div
+            class="grid grid-cols-[repeat(auto-fit,minmax(80px,1fr))] gap-2 sm:gap-4 md:gap-10 xl:gap-12 items-center max-w-[80%]"
+        >
             <template v-for="(item, index) of user.apps">
                 <div
                     @click="handleRedirect(item)"
-                    class="flex flex-col gap-2 items-center hover:scale-105 transition-all cursor-pointer"
+                    class="flex flex-col gap-2 items-center"
                 >
                     <div
-                        class="bg-linear-gray transition-all duration-200 p-2 rounded-xl border border-solid flex justify-center items-center w-20 h-20 border-gray"
+                        class="bg-linear-gray p-2 rounded-xl border border-solid flex justify-center items-center w-20 h-20 border-gray hover:shadow-md hover:scale-105 transition-all duration-100 cursor-pointer"
                     >
                         <IconMenuEkul v-if="item.id == 1" />
                         <IconMenuSoTolak v-else-if="item.id == 2" />
                         <IconMenuReports v-else-if="item.id == 3" />
                         <IconMenuOther v-else />
                     </div>
-                    <p class="text-menu">{{ item.name }}</p>
+                    <p class="text-menu">
+                        {{ item.name }}
+                    </p>
                 </div>
             </template>
         </div>
@@ -66,6 +70,6 @@ onMounted(() => {
 }
 
 .text-menu {
-    @apply text-sm font-semibold;
+    @apply text-xs font-medium text-center whitespace-nowrap;
 }
 </style>
