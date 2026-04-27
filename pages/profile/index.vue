@@ -202,9 +202,18 @@
                                         @click="
                                             connectApp(app.button_id, app.id)
                                         "
-                                        class="w-full py-2 text-[10px] font-black rounded-xl border-2 border-slate-100 bg-white group-hover:border-blue-500 group-hover:text-blue-600 transition-all uppercase tracking-tighter"
+                                        :class="
+                                            app.is_connected
+                                                ? 'bg-blue-500 text-white group-hover:bg-white group-hover:text-blue-600 border-blue-500'
+                                                : 'group-hover:border-blue-500 group-hover:text-blue-600 border-slate-300'
+                                        "
+                                        class="w-full py-2 text-[10px] font-black rounded-xl border-2 bg-white transition-all uppercase tracking-tighter"
                                     >
-                                        Connect
+                                        {{
+                                            app.is_connected
+                                                ? "Re-Connect"
+                                                : "Connect"
+                                        }}
                                     </button>
 
                                     <div
@@ -313,6 +322,7 @@ const handleResponse = async (response, id) => {
             };
             const { data } = await $application.connectApps(payload);
             console.log(response, data);
+            getAllIntegratedApps();
         }
     } catch (error) {
         throw new ErrorHandler(error);
@@ -327,19 +337,29 @@ const getAllIntegratedApps = async () => {
         apps.value.forEach((val) => {
             if (!val.oauth_url) return;
 
-            const script = document.createElement("script");
+            const existingScript = document.querySelector(
+                `script[src="${val.oauth_url}"]`,
+            );
 
-            script.src = val.oauth_url;
-            script.dataset.clientId = val.client_id;
-            script.dataset.buttonId = val.button_id;
+            if (!existingScript) {
+                const script = document.createElement("script");
 
-            window[val.button_id] = (response) => {
-                handleResponse(response, val.id);
-            };
+                script.src = val.oauth_url;
+                script.dataset.clientId = val.client_id;
+                script.dataset.buttonId = val.button_id;
 
-            script.dataset.callback = val.button_id;
+                window[val.button_id] = (response) => {
+                    handleResponse(response, val.id);
+                };
 
-            document.body.appendChild(script);
+                script.dataset.callback = val.button_id;
+
+                document.body.appendChild(script);
+            } else {
+                window[val.button_id] = (response) => {
+                    handleResponse(response, val.id);
+                };
+            }
         });
     } catch (error) {
         throw new ErrorHandler(error);
