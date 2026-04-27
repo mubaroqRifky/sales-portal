@@ -26,7 +26,7 @@
                 </p>
             </div>
 
-            <div class="flex flex-col gap-6 w-full">
+            <div class="flex flex-col gap-2 w-full">
                 <div class="flex flex-col gap-4">
                     <InputText
                         label="Email Address"
@@ -57,13 +57,13 @@
                 </div>
 
                 <div class="flex items-center gap-4">
-                    <hr class="w-full border-slate-100" />
+                    <hr class="w-full border-slate-300" />
                     <p
-                        class="text-[10px] font-black text-slate-300 uppercase tracking-widest"
+                        class="text-[10px] my-2 font-semiold text-slate-500 uppercase tracking-widest"
                     >
                         OR
                     </p>
-                    <hr class="w-full border-slate-100" />
+                    <hr class="w-full border-slate-300" />
                 </div>
 
                 <div class="text-black flex justify-center">
@@ -77,9 +77,9 @@
                         @click="googleLoginHandler"
                     >
                         <IconGoogle width="18px" height="18px" />
-                        <span class="uppercase tracking-tight"
-                            >Login with Google</span
-                        >
+                        <span class="uppercase tracking-tight">
+                            Login with Google
+                        </span>
                     </button>
 
                     <ButtonGoogle
@@ -93,7 +93,7 @@
             </div>
 
             <p
-                class="text-[9px] text-slate-400 font-medium uppercase tracking-tighter"
+                class="text-[9px] -mt-2 text-slate-400 font-medium uppercase tracking-tighter"
             >
                 Authorized User Only
             </p>
