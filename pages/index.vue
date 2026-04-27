@@ -57,16 +57,6 @@ const getAllIntegratedApps = async () => {
 
 onMounted(() => {
     getAllIntegratedApps();
-
-    document.querySelectorAll('.nav-panel a[href^="#"]').forEach((anchor) => {
-        anchor.addEventListener("click", function (e) {
-            e.preventDefault();
-
-            document.querySelector(this.getAttribute("href")).scrollIntoView({
-                behavior: "smooth",
-            });
-        });
-    });
 });
 </script>
 
