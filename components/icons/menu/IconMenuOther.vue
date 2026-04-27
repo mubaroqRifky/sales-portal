@@ -3,8 +3,8 @@
         <svg
             :style="{ width, height }"
             xmlns="http://www.w3.org/2000/svg"
-            width="32"
-            height="32"
+            width="50"
+            height="50"
             viewBox="0 0 24 24"
         >
             <g fill="none">
