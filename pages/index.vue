@@ -37,7 +37,7 @@ const handleRedirect = (item) => {
     try {
         if (!item.bypass_url) {
             throw new Error(
-                `You account has not been connected to ${item.name} app.`,
+                `Your account has not been connected to the ${item.name} app.`,
             );
         }
         window.location.href = item.bypass_url;
