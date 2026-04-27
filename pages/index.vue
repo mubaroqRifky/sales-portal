@@ -12,8 +12,9 @@
                         class="bg-linear-gray transition-all duration-200 p-2 rounded-xl border border-solid flex justify-center items-center w-20 h-20 border-gray"
                     >
                         <IconMenuEkul v-if="item.id == 1" />
-                        <IconMenuSoTolak v-if="item.id == 2" />
-                        <IconMenuReports v-if="item.id == 3" />
+                        <IconMenuSoTolak v-else-if="item.id == 2" />
+                        <IconMenuReports v-else-if="item.id == 3" />
+                        <IconMenuOther v-else />
                     </div>
                     <p class="text-menu">{{ item.name }}</p>
                 </div>
