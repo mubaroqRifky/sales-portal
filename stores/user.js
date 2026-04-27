@@ -3,6 +3,7 @@ import { defineStore } from "pinia";
 export const useUserStore = defineStore("user", {
     state: () => ({
         _user: null,
+        _apps: [],
     }),
     getters: {
         user: (state) => {
@@ -41,17 +42,23 @@ export const useUserStore = defineStore("user", {
                 return null;
             }
         },
+        apps: (state) => {
+            return state._apps || [];
+        },
     },
     actions: {
         setUser(user = null) {
-            const token = useCookie("__AUTH_TOKEN__");
+            const token = useCookie("__ATH_PRTLTKN__");
             token.value = user;
             this._user = user;
         },
         removeUser() {
-            const token = useCookie("__AUTH_TOKEN__");
+            const token = useCookie("__ATH_PRTLTKN__");
             token.value = null;
             this._user = null;
+        },
+        setApps(apps = []) {
+            this._apps = apps;
         },
     },
 });

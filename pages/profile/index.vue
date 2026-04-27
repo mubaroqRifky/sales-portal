@@ -173,12 +173,12 @@
 
                             <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
                                 <div
-                                    v-for="app in integrations"
+                                    v-for="app in apps"
                                     :key="app.name"
                                     class="group flex flex-col items-center p-6 border border-slate-100 rounded-[1.5rem] hover:border-blue-200 hover:bg-blue-50/30 transition-all duration-300"
                                 >
                                     <div
-                                        :class="app.color"
+                                        :class="app.color || 'bg-green-300'"
                                         class="p-5 rounded-2xl mb-4 shadow-sm group-hover:rotate-6 group-hover:scale-110 transition-transform duration-500"
                                     >
                                         <span
@@ -195,26 +195,23 @@
                                     <p
                                         class="text-[10px] text-slate-400 mt-1 mb-6 text-center leading-relaxed font-medium uppercase"
                                     >
-                                        {{ app.desc }}
+                                        {{ app.description }}
                                     </p>
 
                                     <button
-                                        @click="connectApp(app.name)"
+                                        @click="
+                                            connectApp(app.button_id, app.id)
+                                        "
                                         class="w-full py-2 text-[10px] font-black rounded-xl border-2 border-slate-100 bg-white group-hover:border-blue-500 group-hover:text-blue-600 transition-all uppercase tracking-tighter"
                                     >
-                                        Initialize
+                                        Connect
                                     </button>
+
+                                    <div
+                                        :id="`${app.button_id || 'btn-sign-in'}`"
+                                        :class="`hidden ${app.button_id}`"
+                                    ></div>
                                 </div>
-
-                                <div
-                                    id="btn-sign-in"
-                                    class="hidden report-btn"
-                                ></div>
-
-                                <div
-                                    id="btn-appso"
-                                    class="hidden appso-btn"
-                                ></div>
                             </div>
                         </div>
                     </div>
@@ -263,7 +260,7 @@ definePageMeta({
     middleware: ["auth"],
 });
 
-const { $auth, $config } = useNuxtApp();
+const { $auth, $config, $application } = useNuxtApp();
 
 const router = useRouter();
 
@@ -273,27 +270,6 @@ const form = reactive({
     current_password: "",
     new_password: "",
 });
-
-const integrations = [
-    {
-        name: "E-KUL",
-        desc: "Knowledge Hub",
-        icon: "i-heroicons-academic-cap",
-        color: "bg-orange-100 text-orange-600",
-    },
-    {
-        name: "APPSO",
-        desc: "Service Ops",
-        icon: "i-heroicons-cpu-chip",
-        color: "bg-blue-100 text-blue-600",
-    },
-    {
-        name: "Reports",
-        desc: "Daily Insights",
-        icon: "i-heroicons-chart-bar",
-        color: "bg-green-100 text-green-600",
-    },
-];
 
 const handlePasswordChange = () => console.log("Security Updated");
 
@@ -316,61 +292,62 @@ const processLogout = async () => {
     }
 };
 
-const connectApp = (appName) => {
-    switch (appName) {
-        case "Reports":
-            const btnReport = document.querySelector(".report-btn");
-            if (btnReport) {
-                btnReport.click();
-            }
-            break;
-
-        case "APPSO":
-            const btnAppso = document.querySelector(".appso-btn");
-            if (btnAppso) {
-                btnAppso.click();
-            }
-            break;
-
-        default:
-            break;
+const connectApp = (button_id = "btn-sign-in", id) => {
+    currentAction.value = id;
+    const buttonSignIn = document.querySelector(`.${button_id}`);
+    console.log(buttonSignIn);
+    if (buttonSignIn) {
+        buttonSignIn.click();
     }
 };
 
-const handleResponse = (response) => {
-    console.log(response);
+const apps = ref([]);
+const currentAction = ref(null);
+
+const handleResponse = async (response, id) => {
+    try {
+        if (currentAction.value == id) {
+            const payload = {
+                app_id: id,
+                token: response.id_token,
+            };
+            const { data, message } = await $application.connectApps(payload);
+            console.log(response, id, data, message, "masuk");
+        }
+    } catch (error) {
+        throw new ErrorHandler(error);
+    }
 };
 
-const initialOauthReports = () => {
-    const script = document.createElement("script");
+const getAllIntegratedApps = async () => {
+    try {
+        const { data } = await $application.getAll();
+        apps.value = data || [];
 
-    const OAUTH_URL = $config.public.REPORT_OAUTH_URL;
-    script.src = `${OAUTH_URL}/oauth.js`;
-    script.dataset.clientId = $config.public.REPORT_OAUTH_CLIENT_ID;
+        apps.value.forEach((val) => {
+            if (!val.oauth_url) return;
 
-    window.handleResponse = handleResponse;
-    script.dataset.callback = "handleResponse";
+            const script = document.createElement("script");
 
-    document.body.appendChild(script);
-};
+            script.src = val.oauth_url;
+            script.dataset.clientId = val.client_id;
+            script.dataset.buttonId = val.button_id;
 
-const initialOauthAppso = () => {
-    const script = document.createElement("script");
+            window[val.button_id] = (response) => {
+                handleResponse(response, val.id);
+            };
 
-    const OAUTH_URL = $config.public.APPSO_OAUTH_URL;
-    script.src = `${OAUTH_URL}/oauth.js`;
-    script.dataset.clientId = $config.public.APPSO_OAUTH_CLIENT_ID;
-    script.dataset.buttonId = "btn-appso";
+            script.dataset.callback = val.button_id;
 
-    window.handleResponse = handleResponse;
-    script.dataset.callback = "handleResponse";
-
-    document.body.appendChild(script);
+            document.body.appendChild(script);
+        });
+    } catch (error) {
+        throw new ErrorHandler(error);
+    }
 };
 
 onMounted(() => {
-    initialOauthReports();
-    initialOauthAppso();
+    getAllIntegratedApps();
 });
 </script>
 

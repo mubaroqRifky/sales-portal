@@ -2,6 +2,7 @@ import Authenticate from "../apis/Authenticate.ts";
 import User from "../apis/User.ts";
 import Role from "../apis/Role.ts";
 import Permission from "../apis/Permission.ts";
+import Application from "../apis/Application.ts";
 
 export default defineNuxtPlugin(() => {
     return {
@@ -10,6 +11,7 @@ export default defineNuxtPlugin(() => {
             user: new User(),
             role: new Role(),
             permission: new Permission(),
+            application: new Application(),
         },
     };
 });

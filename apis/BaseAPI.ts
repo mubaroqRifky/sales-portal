@@ -26,7 +26,7 @@ export default class BaseAPI {
     }
 
     async get(path: string, params: any, baseURL = this.baseURL): Promise<any> {
-        const token = useCookie("__AUTH_TOKEN__");
+        const token = useCookie("__ATH_PRTLTKN__");
         const { lang } = useLangStore();
 
         return this.fetcher(baseURL + "/" + path, {
@@ -42,9 +42,9 @@ export default class BaseAPI {
         path: string,
         body: any,
         params = {},
-        baseURL = this.baseURL
+        baseURL = this.baseURL,
     ): Promise<any> {
-        const token = useCookie("__AUTH_TOKEN__");
+        const token = useCookie("__ATH_PRTLTKN__");
         const { lang } = useLangStore();
 
         return this.fetcher(baseURL + "/" + path, {
@@ -63,9 +63,9 @@ export default class BaseAPI {
         id: any,
         body: any,
         params = {},
-        baseURL = this.baseURL
+        baseURL = this.baseURL,
     ): Promise<any> {
-        const token = useCookie("__AUTH_TOKEN__");
+        const token = useCookie("__ATH_PRTLTKN__");
         const { lang } = useLangStore();
 
         return this.fetcher(baseURL + "/" + path + "/" + id, {
@@ -83,9 +83,9 @@ export default class BaseAPI {
         path: any,
         id: any,
         params = {},
-        baseURL = this.baseURL
+        baseURL = this.baseURL,
     ): Promise<any> {
-        const token = useCookie("__AUTH_TOKEN__");
+        const token = useCookie("__ATH_PRTLTKN__");
         const { lang } = useLangStore();
 
         return this.fetcher(baseURL + "/" + path + "/" + id, {

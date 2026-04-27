@@ -91,10 +91,6 @@ export default defineNuxtConfig({
             API_PATH: "/api",
             GOOGLE_OAUTH_CLIENT_ID: process.env.GOOGLE_OAUTH_CLIENT_ID,
             GOOGLE_TAG_ID: process.env.GOOGLE_TAG_ID,
-            REPORT_OAUTH_URL: process.env.REPORT_OAUTH_URL,
-            REPORT_OAUTH_CLIENT_ID: process.env.REPORT_OAUTH_CLIENT_ID,
-            APPSO_OAUTH_URL: process.env.APPSO_OAUTH_URL,
-            APPSO_OAUTH_CLIENT_ID: process.env.APPSO_OAUTH_CLIENT_ID,
         },
     },
 
