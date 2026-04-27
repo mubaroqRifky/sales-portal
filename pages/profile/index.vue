@@ -205,9 +205,9 @@
                                         :class="
                                             app.is_connected
                                                 ? 'bg-blue-500 text-white group-hover:bg-white group-hover:text-blue-600 border-blue-500'
-                                                : 'group-hover:border-blue-500 group-hover:text-blue-600 border-slate-300'
+                                                : 'bg-white group-hover:border-blue-500 group-hover:text-blue-600 border-slate-300'
                                         "
-                                        class="w-full py-2 text-[10px] font-black rounded-xl border-2 bg-white transition-all uppercase tracking-tighter"
+                                        class="w-full py-2 text-[10px] font-black rounded-xl border-2 transition-all uppercase tracking-tighter"
                                     >
                                         {{
                                             app.is_connected
