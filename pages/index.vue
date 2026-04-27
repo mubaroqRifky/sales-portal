@@ -36,7 +36,9 @@ const user = useUserStore();
 const handleRedirect = (item) => {
     try {
         if (!item.bypass_url) {
-            throw new Error("You are not connected");
+            throw new Error(
+                `You account has not been connected to ${item.name} app.`,
+            );
         }
         window.location.href = item.bypass_url;
     } catch (error) {
